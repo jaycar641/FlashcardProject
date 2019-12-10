@@ -1,38 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './Sidebar.css';
 
-class Sidebar extends Component {
-state = {
-value: "C#",
-isActive: true
-
-}
-
-componentDidMount() {
-
- this.setState({
-value: this.props.value,
-isActive: this.props.isActive
- });   
-}
-
-//create api call to json collection, after click event for button created on top of sidebar
-
-render() {
+function Sidebar (props) {
 return (
-<div>
-<h2>Collection</h2>
+<button className = "collection" onClick = {props.onClick}>
+<h2>{props.title}</h2>
 <h3>
-    {this.state.value}
+    {props.value}
 </h3>
-
-</div>
+<h2>{props.isActive}</h2>
+</button>
 
 
 );
-
-}
-
 
 }
 

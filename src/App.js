@@ -1,22 +1,17 @@
 import React from 'react';
 import './App.css';
-import './CurrentCard.js';
-import Card from './CurrentCard.js';
-import Sidebar from './SideBar.js';
+import Game from './Game.js';
+
 
 
 function App() {
   return (
+
     <div className="App">
       <header className="App-header">
-      <Card value = "Card" description = "Description" />
+        <Game />
       </header>
-
-     <Sidebar value = "C#"/>
-
-     <Sidebar value = "VSCode"/>
-
-
+    
     </div>
   );
 }
