@@ -8,17 +8,17 @@ class Game extends React.Component {
         super(props);
         this.state = {
     collection: null,
-    isReact: true,
+    isReact: null,
     counter: 0,
     cards: Array(3).fill(null)
+    
         };
     }
     
     componentDidMount() {
-    var results;
-
+        /*Call api and set results to the cards array*/
      this.setState({
-    cards: results,
+    cards: [3, 6, 9, 12],
     collection: this.state.isReact ? 'React' : 'C#'
 
      });   
@@ -30,33 +30,41 @@ class Game extends React.Component {
         });
     }
     
-    handleSideBarClick (props) {
-       
+    handleSideBarClick (value) {
+       if (value === 'React')
+       {
         this.setState({
-         collection: props.collection
+         isReact: true,
 
         });
+        }
+        else {
+            this.setState({
+            isReact: false,
+            });
+        }
     }
-    renderCard(value) {
-        var description1 = this.cards[this.counter];
-        if (value === "React") {
+    renderCard() {
+        var description1 = this.state.cards[this.state.counter];
+        if (this.state.isReact === true) {
+
             return (
-                <Card value = "React" description = {description1} onClick ={() => this.handleClick()} />
+                <Card value = 'React' description = {description1} onClick ={() => this.handleClick()} />
                 );
 
         }
         else {
             return (
-                <Card value = "C#" description = "Description" onClick ={() => this.handleClick()} />
+                <Card value = 'C#' description = {description1} onClick ={() => this.handleClick()} />
                 );
         }
        
     }
     renderSideBar(value) {
         var definition = null;
-
+        
         return (
-            <Sidebar title = {value} value ={definition} onClick ={() => this.handleSideBarClick()} />
+            <Sidebar title = {value} value ={definition} onClick ={() => this.handleSideBarClick(value)} />
             
         )
     }
@@ -67,7 +75,7 @@ class Game extends React.Component {
     return (
        <header>
          <button>
-        {this.renderCard(this.state.collection)}
+        {this.renderCard()}
         <h1>{this.state.counter}</h1>
         <h1>{this.state.isReact}</h1>
         </button>
