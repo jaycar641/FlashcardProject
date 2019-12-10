@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Card from './CurrentCard.js';
 import Sidebar from './SideBar.js';
 import './Game.css';
 
-class Game extends Component {
+class Game extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -16,24 +16,48 @@ class Game extends Component {
     
     componentDidMount() {
     var results;
+
      this.setState({
-    collection: results,
+    cards: results,
+    collection: this.state.isReact ? 'React' : 'C#'
+
      });   
     }
 
     handleClick () {
-        alert('test');
+        this.setState({
+         counter: this.state.counter + 1,
+        });
     }
     
-    renderCard() {
-        return (
-        <Card value = "Card" description = "Description" onClick ={() => this.handleClick()} />
-        );
+    handleSideBarClick (props) {
+       
+        this.setState({
+         collection: props.collection
+
+        });
     }
-    renderSideBar() {
+    renderCard(value) {
+        var description1 = this.cards[this.counter];
+        if (value === "React") {
+            return (
+                <Card value = "React" description = {description1} onClick ={() => this.handleClick()} />
+                );
+
+        }
+        else {
+            return (
+                <Card value = "C#" description = "Description" onClick ={() => this.handleClick()} />
+                );
+        }
+       
+    }
+    renderSideBar(value) {
+        var definition = null;
 
         return (
-            <Sidebar title = "title" value = "Is Active" isActive = "true" />
+            <Sidebar title = {value} value ={definition} onClick ={() => this.handleSideBarClick()} />
+            
         )
     }
     
@@ -42,14 +66,22 @@ class Game extends Component {
     render() {
     return (
        <header>
-        {this.renderCard()}
+         <button>
+        {this.renderCard(this.state.collection)}
+        <h1>{this.state.counter}</h1>
+        <h1>{this.state.isReact}</h1>
+        </button>
+
     <button>
-        <Sidebar title = "C#" isActive = "false"/> 
+        {this.renderSideBar("React")}
     </button>
     <button>
-        <Sidebar title = "VSCode" isActive = "false" />
+        {this.renderSideBar("C#")}
     </button>
+    
     </header>
+
+
         );
     }
     
